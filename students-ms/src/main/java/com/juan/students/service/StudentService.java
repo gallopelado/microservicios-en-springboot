@@ -4,8 +4,8 @@ import com.juan.students.entity.Student;
 
 public interface StudentService {
 
-    public Student save(Student student);
+    Student save(Student student);
 
-    public Student findByIdentificationNumber(String identificationNumber);
+    Student findByIdentificationNumber(String identificationNumber);
 
 }
