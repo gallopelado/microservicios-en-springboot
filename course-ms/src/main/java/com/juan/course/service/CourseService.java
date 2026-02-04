@@ -4,4 +4,5 @@ import com.juan.course.entity.Course;
 
 public interface CourseService {
     Course save(Course course);
+    Course findByCourseCode(String courseCode);
 }
