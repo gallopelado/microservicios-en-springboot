@@ -1,9 +1,9 @@
 package com.juan.enrollment.service;
 
-import com.juan.enrollment.entity.Enrollment;
+import com.juan.enrollment.dto.EnrollmentDTO;
 
 
 public interface EnrollmentService {
-    Enrollment save(Enrollment enrollment);
-    Enrollment findById(Long id);
+    EnrollmentDTO save(EnrollmentDTO enrollmentDTO);
+    EnrollmentDTO findById(Long id);
 }

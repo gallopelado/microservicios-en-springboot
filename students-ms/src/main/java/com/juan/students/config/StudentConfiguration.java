@@ -1,4 +1,4 @@
-package com.juan.course.config;
+package com.juan.students.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.record.RecordModule;
@@ -6,8 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CourseConfiguration {
-
+public class StudentConfiguration {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();

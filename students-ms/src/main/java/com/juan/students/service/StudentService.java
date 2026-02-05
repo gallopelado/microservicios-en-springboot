@@ -1,11 +1,11 @@
 package com.juan.students.service;
 
-import com.juan.students.entity.Student;
+import com.juan.students.dto.StudentDTO;
 
 public interface StudentService {
 
-    Student save(Student student);
+    StudentDTO save(StudentDTO studentDTO);
 
-    Student findByIdentificationNumber(String identificationNumber);
+    StudentDTO findByIdentificationNumber(String identificationNumber);
 
 }

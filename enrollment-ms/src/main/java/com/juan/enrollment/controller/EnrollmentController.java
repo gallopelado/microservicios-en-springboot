@@ -1,5 +1,6 @@
 package com.juan.enrollment.controller;
 
+import com.juan.enrollment.dto.EnrollmentDTO;
 import com.juan.enrollment.entity.Enrollment;
 import com.juan.enrollment.service.EnrollmentService;
 import lombok.AllArgsConstructor;
@@ -13,12 +14,12 @@ public class EnrollmentController {
     private final EnrollmentService enrollmentService;
 
     @PostMapping
-    public Enrollment save(@RequestBody Enrollment enrollment) {
-        return enrollmentService.save(enrollment);
+    public EnrollmentDTO save(@RequestBody EnrollmentDTO enrollmentDTO) {
+        return enrollmentService.save(enrollmentDTO);
     }
 
     @GetMapping("/{id}")
-    public Enrollment findById(@PathVariable("id") Long id) {
+    public EnrollmentDTO findById(@PathVariable("id") Long id) {
         return enrollmentService.findById(id);
     }
 
