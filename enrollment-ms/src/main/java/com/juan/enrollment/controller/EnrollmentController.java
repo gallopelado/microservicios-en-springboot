@@ -1,7 +1,6 @@
 package com.juan.enrollment.controller;
 
 import com.juan.enrollment.dto.EnrollmentDTO;
-import com.juan.enrollment.entity.Enrollment;
 import com.juan.enrollment.service.EnrollmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
