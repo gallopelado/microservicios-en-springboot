@@ -1,6 +1,7 @@
 package com.juan.enrollment.controller;
 
 import com.juan.enrollment.dto.EnrollmentDTO;
+import com.juan.enrollment.dto.EnrollmentResponseDTO;
 import com.juan.enrollment.service.EnrollmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class EnrollmentController {
     }
 
     @GetMapping("/{id}")
-    public EnrollmentDTO findById(@PathVariable("id") Long id) {
+    public EnrollmentResponseDTO findById(@PathVariable("id") Long id) {
         return enrollmentService.findById(id);
     }
 
