@@ -5,6 +5,7 @@ import org.modelmapper.record.RecordModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class EnrollmentConfiguration {
@@ -15,8 +16,13 @@ public class EnrollmentConfiguration {
         return modelMapper;
     }
 
-    @Bean
+    /*@Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }*/
+
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder().build();
     }
 }
