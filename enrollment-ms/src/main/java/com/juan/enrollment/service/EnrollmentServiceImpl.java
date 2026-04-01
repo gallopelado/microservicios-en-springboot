@@ -9,17 +9,18 @@ import com.juan.enrollment.entity.Enrollment;
 import com.juan.enrollment.repository.EnrollmentRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
-@AllArgsConstructor
+import java.util.NoSuchElementException;
+
 @Service
+@AllArgsConstructor
 public class EnrollmentServiceImpl implements EnrollmentService {
 
     private final EnrollmentRepository enrollmentRepository;
     private final ModelMapper modelMapper;
-    private final RestTemplate restTemplate;
+    private final WebClient webClient;
 
     @Override
     public EnrollmentDTO save(EnrollmentDTO enrollmentDTO) {
@@ -29,20 +30,24 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     @Override
     public EnrollmentResponseDTO findById(Long id) {
 
-        //return EnrollmentMapper.toDTO(enrollmentRepository.findById(id).get());
+        Enrollment enrollmentDB = enrollmentRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Enrollment with id " + id + " not found"));
 
-        Enrollment enrollmentDB = enrollmentRepository.findById(id).get();
         String studentUrl = "http://localhost:8081/api/v1/students/identification-number/" + enrollmentDB.getIdentificationNumber();
-        ResponseEntity<StudentDTO> studentDTOResponseEntity = restTemplate
-                .getForEntity(studentUrl, StudentDTO.class);
-
         String courseUrl = "http://localhost:8082/api/v1/courses/course-code/" + enrollmentDB.getCourseCode();
-        ResponseEntity<CourseDTO> courseDTOResponseEntity = restTemplate
-                .getForEntity(courseUrl, CourseDTO.class);
+
+        // Usamos block() para que sean síncronas
+        var studentDTO = webClient.get().uri(studentUrl)
+                .retrieve()
+                .bodyToMono(StudentDTO.class)
+                .block();
+
+        var courseDTO = webClient.get().uri(courseUrl)
+                .retrieve()
+                .bodyToMono(CourseDTO.class)
+                .block();
 
         EnrollmentDTO enrollmentDTO = EnrollmentMapper.toDTO(enrollmentDB);
-        CourseDTO courseDTO = courseDTOResponseEntity.getBody();
-        StudentDTO studentDTO = studentDTOResponseEntity.getBody();
 
         return new EnrollmentResponseDTO(enrollmentDTO, courseDTO, studentDTO);
     }
